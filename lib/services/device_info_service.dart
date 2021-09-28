@@ -43,6 +43,7 @@ class DeviceInfoService {
       if(_iosDeviceInfo != null){
         //setting the brand name of the device
         branName = _iosDeviceInfo!.model;
+
       }
       //if android
     }else {
