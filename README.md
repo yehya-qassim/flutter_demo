@@ -1,6 +1,6 @@
 # demo
 
-A new Flutter application.
+A demo Flutter application to get information like device info mobile info public ip address.
 
 ## Getting Started
 

@@ -14,10 +14,14 @@ dependencies:
     sdk: flutter
     #Flutter dependencies for the app
   cupertino_icons: ^1.0.2
-  network_info_plus: ^1.1.0
+  dart_ipify: ^1.1.1
   mobile_number: ^1.0.4
   device_info_plus: ^2.1.0
   location: ^4.2.0
+  geocoding: ^2.0.1
+  carrier_info: ^2.0.2
+  get_phone_number: ^2.0.1
+  sms_autofill: ^2.1.2
 
 dev_dependencies:
   flutter_test:

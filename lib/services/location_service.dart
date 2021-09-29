@@ -1,4 +1,5 @@
 import 'package:location/location.dart';
+import 'package:geocoding/geocoding.dart' as geo_ocation;
 
 //A service for getting the location
 class LocationService {
@@ -37,12 +38,18 @@ class LocationService {
   }
 
   //A function to get the location data
-  Future<LocationData?> getLocationData() async {
+  Future<geo_ocation.Placemark?> getLocationData() async {
     //first check permission
     await _checkPermission();
 
     //return the location data
-    return await _location.getLocation();
+    final LocationData? locationData = await _location.getLocation();
+
+    //getting place mark such as country name
+    List<geo_ocation.Placemark> placemarks = await geo_ocation.placemarkFromCoordinates(
+        locationData!.latitude!, locationData.longitude!);        
+    final place = placemarks[0];    
+    return place;
   }
 
 }
