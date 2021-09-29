@@ -101,11 +101,13 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                'Click on the icon to get the phone number'
+              const SizedBox(
+                height: 10,
               ),
-              //A widget to get the phone number
-              const PhoneFieldHint(),
+              Text(
+                'Mobile Number: ${mobileNumber ?? 'Loading ...'}',
+                style: _style(),
+              ),
 
               const SizedBox(
                 height: 50,
@@ -254,6 +256,17 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  // A function to get screen info
+  Future<void> initMobileInfo() async {
+
+    final SmsAutoFill autoFill = SmsAutoFill();
+    final String? hint = await autoFill.hint;
+
+     setState(() {
+       mobileNumber = hint;
+     });
+  }
+
   Future<void> initAppFunctions() async {
     //init network info
      _initNetworkInfo();
@@ -266,6 +279,9 @@ class _HomePageState extends State<HomePage> {
 
      //init location
      initLocation();
+
+     //init mobile
+    initMobileInfo();
 
   }
 }
