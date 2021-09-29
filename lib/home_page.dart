@@ -256,7 +256,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // A function to get screen info
+  // A function to get mobile number
   Future<void> initMobileInfo() async {
 
     final SmsAutoFill autoFill = SmsAutoFill();
