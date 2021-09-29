@@ -278,7 +278,7 @@ class _HomePageState extends State<HomePage> {
      initCarrierInfo();
 
      //init location
-     initLocation();
+     await initLocation();
 
      //init mobile
     initMobileInfo();
