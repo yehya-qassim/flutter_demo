@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:location/location.dart';
 import 'package:geocoding/geocoding.dart' as geo_ocation;
 
@@ -16,15 +17,7 @@ class LocationService {
 
   //A function to check for permission
   Future<void> _checkPermission() async {
-    //check if the location service is enabled
-    _serviceEnabled = await _location.serviceEnabled();
-    if (!_serviceEnabled!) {
-      //if not request enabling it
-      _serviceEnabled = await _location.requestService();
-      if (!_serviceEnabled!) {
-        return;
-      }
-    }
+    await _checkService();
 
     //check if permission is granted
     _permissionGranted = await _location.hasPermission();
@@ -46,10 +39,24 @@ class LocationService {
     final LocationData? locationData = await _location.getLocation();
 
     //getting place mark such as country name
-    List<geo_ocation.Placemark> placemarks = await geo_ocation.placemarkFromCoordinates(
+    List<geo_ocation.Placemark> placeMarks = await geo_ocation.placemarkFromCoordinates(
         locationData!.latitude!, locationData.longitude!);
-    final place = placemarks[0];
+    final place = placeMarks[0];
     return place;
   }
+
+  //checking if service is enabled
+  _checkService() async {
+    try {
+      _serviceEnabled = await _location.serviceEnabled();
+    } on PlatformException catch (err) {
+      //on some android devices the check may take a little longer so we should wait till this function works without exception
+      _serviceEnabled = false;
+
+      // location service is still not created
+      await _checkService(); // re-invoke itself every time the error is catch, so until the location service setup is complete
+    }
+  }
+
 
 }
